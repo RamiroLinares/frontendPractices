@@ -44,6 +44,9 @@
                     imgTag.setAttribute('src',imgSrc);
                     imgTag.style.height='200px';
                     imgTag.style.width='200px';
+                    const description = document.createElement("p");
+                    description.textContent = user.name;
+                    document.getElementById('container').append(description);
                     document.getElementById('container').append(imgTag);
                 })
         }
