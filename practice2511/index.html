@@ -27,16 +27,19 @@
     <p id="par"></p>
     <div id="container"></div>
     <script>
-        function getAvatar(userId) {
+        async function getAvatar(user) {
             //`https://i.pravatar.cc/200?${userId}`
             //`https://i.pravatar.cc/20`+userId
-            fetch(`https://i.pravatar.cc/200?${userId}`, {
+            //https://picsum.photos/200
+            await fetch("https://picsum.photos/20"+user.userId/*, {
                 mode: 'no-cors' // 'cors' by default
-            }).then(response => {
+            }*/).then(response => {
                 return response.blob();
-            }).then(imageBlob =>{
+            }).then(imageBlob  =>{
                     const imgSrc= URL.createObjectURL(imageBlob);
                     console.log(imgSrc);
+                    user.blobURL=imgSrc;
+                    console.log(user);
                     const imgTag= document.createElement('img');
                     imgTag.setAttribute('src',imgSrc);
                     imgTag.style.height='200px';
@@ -107,8 +110,8 @@
         }
         function AddImage() {
             for (let user of users) {
-                let url = getAvatar(user.userId);
-                //console.log(user.userId);
+                let url = getAvatar(user);
+                //console.log(url);
             }
         }
         // 1: Write a function to filter users by tags: Ex. Get All Backend Users
