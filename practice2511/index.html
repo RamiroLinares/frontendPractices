@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice One</title>
+</head>
+
+<body>
+    <div id="container"></div>
+    <form class="" action="index.html" method="post">
+        <input type="text" id="dataInput" name="dataInput" value="" /><br>
+        <button type="button" name="button" onclick="FilterbyTag(dataInput.value)">
+            FilterbyTag
+        </button>
+        <button type="button" name="button" onclick="GroupByAnyKey(dataInput.value)">
+            GroupByAnyKey
+        </button>
+        <button type="button" name="button" onclick="AddImage()">
+            AddImageURl
+        </button>
+
+    </form>
+    <p>For GroupByAnyKey put the key you want to groupby (e.g country)</p>
+    <p id="par"></p>
+    <div id="container"></div>
+    <script>
+        function getAvatar(userId) {
+            //`https://i.pravatar.cc/200?${userId}`
+            //`https://i.pravatar.cc/20`+userId
+            fetch(`https://i.pravatar.cc/200?${userId}`, {
+                mode: 'no-cors' // 'cors' by default
+            }).then(response => {
+                return response.blob();
+            }).then(imageBlob =>{
+                    const imgSrc= URL.createObjectURL(imageBlob);
+                    console.log(imgSrc);
+                    const imgTag= document.createElement('img');
+                    imgTag.setAttribute('src',imgSrc);
+                    imgTag.style.height='200px';
+                    imgTag.style.width='200px';
+                    document.getElementById('container').append(imgTag);
+                })
+        }
+        function createUserCard(user) {
+            const container = document.createElement("div");
+            const image = document.createElement("img");
+            image.src = user.imageUrl;
+            const description = document.createElement("p");
+            description.textContent = user.name;
+            container.append(image, description);
+            return container;
+        }
+        const users = [
+            {
+                userId: "1",
+                name: "User One",
+                country: "A",
+                tags: ["Frontend"]
+            },
+            {
+                userId: "2",
+                name: "User Two",
+                country: "B",
+                tags: ["Frontend", "Backend", "Devops"]
+            },
+            {
+                userId: "3",
+                name: "User Three",
+                country: "C",
+                tags: ["Backend", "DevOps"]
+            },
+            {
+                userId: "4",
+                name: "User Four",
+                country: "C",
+                tags: ["DevOps"]
+            },
+            {
+                userId: "5",
+                name: "User Five",
+                country: "B",
+                tags: ["DevOps"]
+            }
+        ];
+        function FilterbyTag(filterdata) {
+            //const result = users.filter(user => user.tags == filterdata);
+            const result2 = users.filter(user => user.tags.includes(filterdata));
+            //console.log(result);
+            //console.log(result2);
+            document.getElementById("par").innerHTML = JSON.stringify(result2);
+
+        }
+        var groupBy = function (xs, key) {
+            return xs.reduce(function (rv, x) {
+                (rv[x[key]] = rv[x[key]] || []).push(x);
+                return rv;
+            }, {});
+        };
+        function GroupByAnyKey(filterdata) {
+            //const result = users.filter(user => user.country == filterdata);
+            //console.log(result);
+            const result2 = groupBy(users, filterdata)
+            document.getElementById("par").innerHTML = JSON.stringify(result2);
+        }
+        function AddImage() {
+            for (let user of users) {
+                let url = getAvatar(user.userId);
+                //console.log(user.userId);
+            }
+        }
+        // 1: Write a function to filter users by tags: Ex. Get All Backend Users
+        // 2: Function to group users by Contry ex  { "A": [...], "C": [...]}
+        // 3: A function that return a promise with image as a Blob URL
+        // 4: Optional: User the createUserCard and add all the users into container div.
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+<html>
+<title>Word Counter</title>
+
+<body>
+    <script type="text/javascript" src='index.js'></script>
+    <label for="word">Write words the faster you can!</label>
+    <div>
+        <!-- <input type="text" id="wordCount" name="wordCount" required minlength="10" maxlength="30" size="30"> -->
+        <textarea id="textarea" name="textarea" oninput="countWords(minutesLabel.innerHTML,secondsLabel.innerHTML,textarea)" rows="10" cols="50"></textarea>
+        <label id="minutes">00</label>:<label id="seconds">00</label>
+        <p> Character per second:
+            <span id="show">0</span>
+        </p>
+        <script>
+            const minutesLabel = document.getElementById("minutes");
+            const secondsLabel = document.getElementById("seconds");
+            let totalSeconds = 0;
+            setInterval(setTime, 1000);
+
+            function setTime() {
+                ++totalSeconds;
+                secondsLabel.innerHTML = pad(totalSeconds % 60);
+                minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+            }
+
+            function pad(val) {
+                const valString = val + "";
+                if (valString.length < 2) {
+                    return "0" + valString;
+                } else {
+                    return valString;
+                }
+            }
+            </script>
+        <!-- <script>document.getElementById('wordCount').style.height = "200px";
+            document.getElementById('wordCount').style.width = "800px";</script> -->
+    </div>
+</body>
+
+</html>
