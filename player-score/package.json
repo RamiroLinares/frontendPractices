@@ -1,0 +1,26 @@
+{
+  "name": "player-score",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "start": "parcel src/index.html"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^27.0.3",
+    "@types/jsdom": "^16.2.13",
+    "jest": "^27.4.3",
+    "jsdom": "^19.0.0",
+    "parcel-bundler": "^1.12.5",
+    "ts-jest": "^27.1.1",
+    "typescript": "^4.5.2"
+  },
+  "dependencies": {
+    "inversify": "^6.0.1",
+    "reflect-metadata": "^0.1.13"
+  }
+}
